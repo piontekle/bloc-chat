@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './../App.css'
 
 class RoomList extends Component {
   constructor(props) {
@@ -6,7 +7,6 @@ class RoomList extends Component {
 
     this.state = {
       rooms: [],
-
       newRoomName: ""
     };
 
@@ -36,20 +36,32 @@ class RoomList extends Component {
 
   render() {
     return (
-      <section className="room-list">
-        <h1>Bloc Chat Rooms</h1>
-        {
-          this.state.rooms.map ( (roomName, index) =>
-            <p className="room-name" key={index}>{roomName.name}</p>
-          )
-        }
-        <section className="new-room-form">
-          <form id="create-new-room" onSubmit={ (e) => this.createRoom(e) }>
-            <input type="text" value={ this.state.newRoomName } onChange = { (e) => this.handleChange(e) } placeholder="Create New Room..."/>
-            <input type="submit" value="Submit"/>
-          </form>
+      <section className="chat-room-box">
+        <h1>Chat Rooms</h1>
+          <ul className="room-list">
+            {
+              this.state.rooms.map ( (room, index) =>
+                <li
+                id="room-name"
+                className={room.name === this.props.activeRoom.name ? "highlight" : null}
+                key={index}
+                onClick={() => this.props.setActiveRoom(room) }>
+                {room.name}
+                </li>
+              )
+              }
+            </ul>
+          <section className="new-room-form">
+            <form id="create-new-room" onSubmit={ (e) => this.createRoom(e) }>
+              <input
+              type="text"
+              value={ this.state.newRoomName }
+              onChange = { (e) => this.handleChange(e) }
+              placeholder="Create New Room..."/>
+              <input type="submit" value="Submit"/>
+            </form>
+          </section>
         </section>
-      </section>
     );
   }
 }
