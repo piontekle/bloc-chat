@@ -37,25 +37,33 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">Bloc Chat App</header>
-        <section id="room-list">
-          <RoomList
-          firebase={ firebase }
-          activeRoom={ this.state.activeRoom }
-          setActiveRoom={ (room) => this.setActiveRoom(room)}
-          user={ this.state.user }
-          />
-        </section>
-        <section id="message-list">
-          <MessageList
-          firebase={ firebase }
-          activeRoom={ this.state.activeRoom }
-          user={ this.state.user }/>
-        </section>
-        <section id="users">
-          <User
-          firebase={ firebase }
-          user={ this.state.user }
-          setUser={ (user) => this.setUser(user) }/>
+        <section className="flex-container">
+          <section className="flex-item">
+            <section id="room-list">
+              <RoomList
+              firebase={ firebase }
+              activeRoom={ this.state.activeRoom }
+              setActiveRoom={ (room) => this.setActiveRoom(room)}
+              user={ this.state.user }
+              />
+            </section>
+          </section>
+          <section className="flex-item">
+            <section id="message-list">
+              <MessageList
+              firebase={ firebase }
+              activeRoom={ this.state.activeRoom }
+              user={ this.state.user }/>
+            </section>
+          </section>
+          <section className="flex-item">
+            <section id="users">
+              <User
+              firebase={ firebase }
+              user={ this.state.user }
+              setUser={ (user) => this.setUser(user) }/>
+            </section>
+          </section>
         </section>
       </div>
     );

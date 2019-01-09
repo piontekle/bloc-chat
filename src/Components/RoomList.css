@@ -1,4 +1,52 @@
-.room-name:hover {
-  border: 2px;
-  border-color: blue;
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+.chat-room-box {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 15px 10px 10px;
+  width: 250px;
+  max-width: 250px;
+  height: 100%;
+  max-height: inherit;
+
+}
+
+.room-list {
+  flex-direction: row;
+  list-style: none;
+  text-align: left;
+  height: 350px;
+  overflow-y: scroll;
+  background-color: rgba(192,192,192, .3);
+  padding-top: 10px;
+  margin-top: 30px;
+}
+
+li {
+  padding: 5px;
+}
+
+#room-name {
+  padding: 2px;
+}
+
+#room-name:hover {
+  border: 2px solid blue;
+  border-radius: 20%;
+}
+
+.highlight {
+  background-color: #7FFF00;
+  border-radius: 20%;
+}
+
+.new-room-form {
+  flex-direction: row;
+  left: -10px;
 }

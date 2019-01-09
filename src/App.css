@@ -1,44 +1,60 @@
-.App {
-  text-align: center;
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 10vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.chat-room-box {
-  float: left;
-  padding: 20px 15px 50px 10px;
+html, body {
   height: 100%;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 100%;
+}
+
+.flex-item {
+  display: flex;
+  flex-direction: row;
   border: 1px solid grey;
 }
 
-.room-list {
-  list-style: none;
+#room-list {
+  width: 0 0 250px;
 }
 
-#room-name {
-  padding: 5px;
+#message-list {
+  flex: 1;
 }
 
-#room-name:hover {
-  border: 2px solid blue;
-  border-radius: 20%;
+#users {
+  flex: auto;
 }
 
-.highlight {
-  background-color: #7FFF00;
+h1 {
+  font-size: calc(10px + 2vmin);
+  color: white;
+  background-color: rgba(72,72,72);
+  margin: 0;
 }
 
-.message-content {
-  list-style: none;
-  text-align: left;
-  padding: 10px 5px 0px 50px;
+.delete-button button {
+  font-size: 10px;
+  background-color: rgba(248,131,121, 0.6);
+  border-radius: 8px;
+}
+
+.edit-button button {
+  font-size: 10px;
+  background-color: rgba(121,248,195, 0.6);
+  border-radius: 8px;
 }

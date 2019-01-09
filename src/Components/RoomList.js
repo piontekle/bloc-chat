@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './../App.css'
+import './RoomList.css';
+import './../App.css';
 
 class RoomList extends Component {
   constructor(props) {
@@ -7,7 +8,8 @@ class RoomList extends Component {
 
     this.state = {
       rooms: [],
-      newRoomName: ""
+      newRoomName: "",
+      editName: ""
     };
 
     this.roomsRef = this.props.firebase.database().ref('rooms');
@@ -31,7 +33,33 @@ class RoomList extends Component {
     this.roomsRef.push({
       name: this.state.newRoomName
     });
-    this.setState({ newRoomName: "" })
+    this.setState({ newRoomName: "" });
+  }
+
+  handleEdit(roomKey) {
+    const edit = prompt("Please enter new room name:")
+
+    if (edit === "" || edit === null) {
+      return;
+    } else {
+      this.setState({ editName: edit });
+      console.log(this.state.editName)
+      this.editRoom(roomKey);
+    }
+  }
+
+  editRoom(roomKey) {
+    this.roomsRef.child(roomKey).update({ "name" : this.state.editName })
+    this.setState({ editName: "" })
+  }
+
+  deleteRoom(roomKey) {
+    var filteredRooms = this.state.rooms.filter( room => {
+      return room.key !== roomKey;
+    })
+    this.setState({ rooms: filteredRooms });
+
+    this.roomsRef.child(roomKey).remove();
   }
 
   render() {
@@ -41,13 +69,19 @@ class RoomList extends Component {
           <ul className="room-list">
             {
               this.state.rooms.map ( (room, index) =>
-                <li
-                id="room-name"
-                className={room.name === this.props.activeRoom.name ? "highlight" : null}
-                key={index}
-                onClick={() => this.props.setActiveRoom(room) }>
-                {room.name}
-                </li>
+                  <li>
+                    <span
+                      id="room-name"
+                      className={room.name === this.props.activeRoom.name ? "highlight" : null}
+                      key={room.key}
+                      onClick={() => this.props.setActiveRoom(room) }>
+                      {room.name}            </span>
+                      <span className="edit-button">
+                        <button id="edit-room-button" onClick={ () => this.handleEdit(room.key) }>Edit</button>      </span>
+                    <span className="delete-button">
+                      <button id="delete-room-button" onClick = { () => window.confirm("Are you sure you want to delete this room?") ? this.deleteRoom(room.key) : null }>Delete</button>
+                    </span>
+                  </li>
               )
               }
             </ul>
