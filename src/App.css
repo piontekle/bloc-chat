@@ -58,3 +58,7 @@ h1 {
   background-color: rgba(121,248,195, 0.6);
   border-radius: 8px;
 }
+
+.hidden {
+  display: none;
+}

@@ -42,14 +42,20 @@ class RoomList extends Component {
     if (edit === "" || edit === null) {
       return;
     } else {
-      this.setState({ editName: edit });
-      console.log(this.state.editName)
-      this.editRoom(roomKey);
+      this.setState({ editName: edit }, function () {
+        this.editRoom(roomKey, this.state.editName);
+      })
     }
   }
 
-  editRoom(roomKey) {
-    this.roomsRef.child(roomKey).update({ "name" : this.state.editName })
+  editRoom(roomKey, editName) {
+    this.state.rooms.forEach( room => {
+      if (room.key === roomKey) {
+        room.name = editName;
+      }
+    })
+
+    this.roomsRef.child(roomKey).update({ "name" : editName })
     this.setState({ editName: "" })
   }
 
@@ -59,6 +65,7 @@ class RoomList extends Component {
     })
     this.setState({ rooms: filteredRooms });
 
+    this.props.lastDeletedRoom(roomKey);
     this.roomsRef.child(roomKey).remove();
   }
 
@@ -69,11 +76,10 @@ class RoomList extends Component {
           <ul className="room-list">
             {
               this.state.rooms.map ( (room, index) =>
-                  <li>
+                  <li key={room.key}>
                     <span
                       id="room-name"
                       className={room.name === this.props.activeRoom.name ? "highlight" : null}
-                      key={room.key}
                       onClick={() => this.props.setActiveRoom(room) }>
                       {room.name}            </span>
                       <span className="edit-button">
