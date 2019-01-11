@@ -23,17 +23,17 @@ class MessageList extends Component {
       message.key = snapshot.key;
       this.setState({ messages: this.state.messages.concat( message ) })
     });
-
-    const key = this.props.lastRoomDeleted;
-    this.messagesRef.orderByChild('roomID').equalTo(key).once('value', snapshot => {
-      const updates = {};
-      snapshot.forEach(message => updates[message.key] = null);
-      this.messagesRef.update(updates);
-    });
   }
 
   handleChange(e) {
     this.setState({ newMessage: e.target.value })
+  }
+
+  onEnterPress(e) {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      this.sendMessage(e)
+    }
   }
 
   sendMessage(e) {
@@ -112,7 +112,7 @@ class MessageList extends Component {
                 <li id="message-content">{message.content}</li>
                 }
                 <li id="timestamp">
-                  <span>({message.sentAt})            </span>
+                  <span>{message.sentAt}            </span>
                   <span className="edit-button">
                     <button id="edit-message-button" onClick={ () => this.handleEditClick(message.key) }>Edit</button>     </span>
                   <span className="delete-button">
@@ -128,9 +128,10 @@ class MessageList extends Component {
           cols="100"
           row="1"
           onChange={ (e) => this.handleChange(e) }
+          onKeyDown={ (e) => this.onEnterPress(e) }
           value={ this.state.newMessage }
           placeholder="New message text here..."></textarea>
-          <p><button type="submit">Send</button></p>
+          <p><input type="submit" value="Send"/></p>
         </form>
       </section>
     )

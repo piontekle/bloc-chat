@@ -1,31 +1,31 @@
-html {
-  box-sizing: border-box;
-}
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-
 .chat-room-box {
   display: flex;
   flex-direction: column;
-  padding: 0px 15px 10px 10px;
+  padding: 0px;
   width: 250px;
   max-width: 250px;
   height: 100%;
   max-height: inherit;
-
 }
+
+.room-heading {
+  flex-direction: row;
+  background-color: rgba(72,72,72);
+  height: 58px;
+  width: 250px;
+  position: relative;
+}
+
 
 .room-list {
   flex-direction: row;
   list-style: none;
   text-align: left;
-  height: 350px;
+  height: 340px;
   overflow-y: scroll;
   background-color: rgba(192,192,192, .3);
   padding-top: 10px;
-  margin-top: 30px;
+  margin-top: 0px;
 }
 
 li {
@@ -37,7 +37,7 @@ li {
 }
 
 #room-name:hover {
-  border: 2px solid blue;
+  border: 2px solid rgba(248,131,121, 0.6);
   border-radius: 20%;
 }
 

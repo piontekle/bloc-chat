@@ -60,19 +60,38 @@ class RoomList extends Component {
   }
 
   deleteRoom(roomKey) {
+    if (roomKey === this.props.activeRoom.key) {
+      this.props.setActiveRoom("")
+    }
+
     var filteredRooms = this.state.rooms.filter( room => {
       return room.key !== roomKey;
     })
     this.setState({ rooms: filteredRooms });
 
-    this.props.lastDeletedRoom(roomKey);
     this.roomsRef.child(roomKey).remove();
+    this.deleteRoomMessages(roomKey);
+  }
+
+  deleteRoomMessages(roomKey) {
+    var messagesRef = this.props.firebase.database().ref('messages');
+
+    messagesRef.on('child_added', snapshot => {
+      const message = snapshot.val();
+      message.key = snapshot.key;
+
+      if (message.roomID === roomKey) {
+        messagesRef.child(message.key).remove();
+      }
+    })
   }
 
   render() {
     return (
       <section className="chat-room-box">
-        <h1>Chat Rooms</h1>
+        <section className="room-heading">
+          <h1>Chat Rooms</h1>
+        </section>
           <ul className="room-list">
             {
               this.state.rooms.map ( (room, index) =>

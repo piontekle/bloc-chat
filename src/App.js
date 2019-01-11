@@ -5,6 +5,8 @@ import MessageList from './Components/MessageList';
 import User from './Components/User'
 import * as firebase from 'firebase';
 
+
+
 var config = {
     apiKey: "AIzaSyC0M0EEqG324kJM4aB85LEkWUD6mB5HYqA",
     authDomain: "bloc-chat-1992.firebaseapp.com",
@@ -21,7 +23,6 @@ class App extends Component {
 
     this.state = {
       activeRoom: "",
-      lastRoomDeleted: "",
       user: ""
     };
   }
@@ -30,9 +31,6 @@ class App extends Component {
     this.setState({ activeRoom: room })
   }
 
-  lastDeletedRoom(room) {
-    this.setState({ lastRoomDeleted: room })
-  }
 
   setUser(user) {
     this.setState({ user: user })
@@ -49,7 +47,6 @@ class App extends Component {
               firebase={ firebase }
               activeRoom={ this.state.activeRoom }
               setActiveRoom={ (room) => this.setActiveRoom(room)}
-              lastDeletedRoom={ (room) => this.lastDeletedRoom(room) }
               user={ this.state.user }
               />
             </section>
@@ -59,7 +56,6 @@ class App extends Component {
               <MessageList
               firebase={ firebase }
               activeRoom={ this.state.activeRoom }
-              lastRoomDeleted={ this.state.lastRoomDeleted }
               user={ this.state.user }/>
             </section>
           </section>
