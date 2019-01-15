@@ -23,9 +23,6 @@ class User extends Component {
         <section className="user-heading">
           <h1>Users</h1>
         </section>
-        <section className="user-list">
-
-        </section>
         <section className="current-user">
           <p>Current User: { this.props.user ? this.props.user.displayName : "Guest" }</p>
           <button id="sign-in" onClick={() => this.handleSignIn()}>Sign In</button>

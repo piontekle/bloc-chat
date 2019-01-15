@@ -9,7 +9,6 @@ class MessageList extends Component {
     this.state = {
       messages: [],
       newMessage: "",
-      isEditing: false,
       messageUpdating: "",
       editMessage: ""
     };
@@ -54,7 +53,6 @@ class MessageList extends Component {
 
   handleEditClick(messageKey) {
     this.setState({
-      isEditing : !this.state.isEditing,
       messageUpdating: messageKey
     })
   }
@@ -75,7 +73,6 @@ class MessageList extends Component {
 
     this.messagesRef.child(this.state.messageUpdating).update({ "content": this.state.editMessage })
     this.setState({
-      isEditing: !this.state.isEditing,
       messageUpdating: "",
       editMessage: ""
     })
@@ -101,12 +98,12 @@ class MessageList extends Component {
               <ul className="message-contents" key={message.key}>
                 <li id="message-user">{message.username}:</li>
                 {
-                  this.state.isEditing && this.state.messageUpdating === message.key ?
+                  this.state.messageUpdating === message.key ?
                   <form className="edit-message-form" onSubmit={(e) => this.editMessage(e)}>
                     <input type="text"
                     value={ this.state.editMessage }
                     onChange={(e) => this.handleEdit(e)}
-                    placeholder="Edit message here..."/>
+                    placeholder={message.content}/>
                     <input type="submit" value="Update Message"/>
                   </form> :
                 <li id="message-content">{message.content}</li>
